@@ -1,9 +1,7 @@
-# Assignment 4
+# Lambda
 
-Extension of first assignment with classloaders and reflection. 
+Extension of first assignment to work with lambda functions and functional interfaces.
 
-Changing of jar files in **patch** folder will dynamically change the behaviour of the parser.
+**Tokenizer** in functional interface
 
-Jar in **patch/old** will parse all the tokens
-
-Jar in **patch** will parse only tokens starting with **"ч"**
+Method **getTokens** inside Preprocessor class was changed to work using lambda functions

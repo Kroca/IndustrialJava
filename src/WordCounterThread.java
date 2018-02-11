@@ -10,21 +10,12 @@ public class WordCounterThread implements Runnable {
 
     private String fileName;
 
-    private Preprocess preprocess;
+    private Preprocess preprocess = new Preprocessor();
 
     private WordCounter parent;
     WordCounterThread(String fileName,WordCounter parent){
         this.fileName = fileName;
         this.parent = parent;
-        loadPreprocessor();
-    }
-    private void loadPreprocessor(){
-        Loader ml = new Loader();
-        try {
-            preprocess = (Preprocess) ml.findClass("Preprocessor").newInstance();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
