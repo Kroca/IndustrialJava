@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build/libs/exploded/day-03-03-mvc-1.0-SNAPSHOT.war/WEB-INF/lib/spring-aop-5.0.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/libs/exploded/day-03-03-mvc-1.0-SNAPSHOT.war/WEB-INF/lib/spring-webmvc-5.0.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/libs/exploded/day-03-03-mvc-1.0-SNAPSHOT.war/WEB-INF/lib/spring-beans-5.0.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/libs/exploded/day-03-03-mvc-1.0-SNAPSHOT.war/WEB-INF/lib/javax.servlet-api-3.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/libs/exploded/day-03-03-mvc-1.0-SNAPSHOT.war/WEB-INF/lib/spring-context-5.0.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/libs/exploded/day-03-03-mvc-1.0-SNAPSHOT.war/WEB-INF/lib/jstl-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/libs/exploded/day-03-03-mvc-1.0-SNAPSHOT.war/WEB-INF/lib/spring-core-5.0.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/libs/exploded/day-03-03-mvc-1.0-SNAPSHOT.war/WEB-INF/lib/spring-expression-5.0.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/libs/exploded/day-03-03-mvc-1.0-SNAPSHOT.war/WEB-INF/lib/spring-jcl-5.0.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/libs/exploded/day-03-03-mvc-1.0-SNAPSHOT.war/WEB-INF/lib/postgresql-9.0-801.jdbc4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/libs/exploded/day-03-03-mvc-1.0-SNAPSHOT.war/WEB-INF/lib/spring-web-5.0.4.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
