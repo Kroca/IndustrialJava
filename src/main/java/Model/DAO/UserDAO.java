@@ -1,6 +1,8 @@
 package Model.DAO;
 
 import Model.Template.UserTemplate;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.*;
@@ -8,14 +10,21 @@ import java.util.List;
 
 public class UserDAO implements DAO<UserTemplate,Integer> {
 
+    static {
+        PropertyConfigurator.configure(UserDAO.class.getClassLoader().getResource("log4j.properties"));
+    }
+    private static Logger LOGGER = Logger.getLogger(UserDAO.class);
+
+
     public UserTemplate authenticateUser(String nick,String pas) {
+
         Connection con = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         UserTemplate template = null;
 
         try {
-            con = DBConnection.createConnection();
+            con = DBConnection.getDataSource().getConnection();
             String sql ="select * from users WHERE nickName= ? AND password= ?";
             statement = con.prepareStatement(sql);
             statement.setString(1,nick);
@@ -24,22 +33,17 @@ public class UserDAO implements DAO<UserTemplate,Integer> {
             if(resultSet.next()) {
                 template = new UserTemplate(resultSet.getInt("id"), resultSet.getString("name"),
                         resultSet.getString("email"), resultSet.getString("nickName"), resultSet.getString("password"));
+            }else {
+                LOGGER.debug("user not found");
             }
         } catch (SQLException e) {
+            LOGGER.error("error getting information about user from database",e);
             e.printStackTrace();
         }finally {
             closeResources(con,statement,resultSet);
         }
         return template;
     }
-//    public String registerUser(UserTemplate userTemplate)
-//    {
-//        if(insert(userTemplate)!=0){
-//            return "SUCCESS";
-//        }else{
-//            return "Something went wrong";
-//        }
-//    }
     @Override
     public UserTemplate getById(Integer id) {
         UserTemplate template = null;
@@ -47,18 +51,18 @@ public class UserDAO implements DAO<UserTemplate,Integer> {
         Statement statement = null;
         ResultSet resultSet = null;
 
-        String userNameDB = "";
-        String passwordDB = "";
-
         try {
-            con = DBConnection.createConnection();
+            con = DBConnection.getDataSource().getConnection();
             statement = con.createStatement();
             resultSet = statement.executeQuery("select * from users WHERE id = "+id);
-            resultSet.next();
-            template = new UserTemplate(resultSet.getInt("id"),resultSet.getString("name"),
-                    resultSet.getString("email"),resultSet.getString("nickName"),resultSet.getString("password"));
-
+            if(resultSet.next()) {
+                template = new UserTemplate(resultSet.getInt("id"), resultSet.getString("name"),
+                        resultSet.getString("email"), resultSet.getString("nickName"), resultSet.getString("password"));
+            }else {
+                LOGGER.debug("user not found");
+            }
         } catch (SQLException e) {
+            LOGGER.debug("Couldn't get info about user from database",e);
             e.printStackTrace();
         }finally {
             closeResources(con,statement,resultSet);
@@ -83,7 +87,7 @@ public class UserDAO implements DAO<UserTemplate,Integer> {
 
         try
         {
-            con = DBConnection.createConnection();
+            con = DBConnection.getDataSource().getConnection();
             String query = "insert into users(name,email,nickName,password) values (?,?,?,?)"; //Insert user details into the table 'USERS'
             preparedStatement = con.prepareStatement(query); //Making use of prepared statements here to insert bunch of data
             preparedStatement.setString(1, name);
@@ -91,10 +95,10 @@ public class UserDAO implements DAO<UserTemplate,Integer> {
             preparedStatement.setString(3, nickName);
             preparedStatement.setString(4, password);
             return preparedStatement.executeUpdate();
-
         }
         catch(SQLException e)
         {
+            LOGGER.debug("Couldn't add new user to database",e);
             e.printStackTrace();
         }finally {
             closeResources(con,preparedStatement,null);

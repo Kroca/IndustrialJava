@@ -23,6 +23,7 @@ public class LoginServlet extends HttpServlet {
     private static UserServices userServices = new UserServices();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        LOGGER.debug("displaying login page");
         getServletContext().getRequestDispatcher("/Login.jsp").forward(req, resp);
     }
 
@@ -36,12 +37,14 @@ public class LoginServlet extends HttpServlet {
 
         if (userTemplate!=null)
         {
+            LOGGER.debug("successful login");
             HttpSession session = req.getSession();
             session.setAttribute("userLogin",userTemplate.getNickName());
             session.setAttribute("user",userTemplate);
             req.setAttribute("userName", nickName);
             resp.sendRedirect("/home");
         } else {
+            LOGGER.debug("cannot login");
             req.setAttribute("errMessage", "Failed to login, try again");
             req.getRequestDispatcher("/Login.jsp").forward(req, resp);
         }

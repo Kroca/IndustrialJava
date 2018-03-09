@@ -19,25 +19,25 @@ public class HomeServlet extends HttpServlet {
     }
     private static final Logger LOGGER = Logger.getLogger(HomeServlet.class);
 
-
     private static PublicationServices publicationServices = new PublicationServices();
-
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        LOGGER.debug("adding new publication");
         int user_id = ((UserTemplate)req.getSession().getAttribute("user")).getId();
         PublicationTemplate publicationTemplate = new PublicationTemplate();
         publicationTemplate.setTitle(req.getParameter("title"));
         publicationTemplate.setDescription(req.getParameter("description"));
         publicationTemplate.setLink(req.getParameter("link"));
         publicationTemplate.setAuthorId(user_id);
-
         publicationServices.addNewPublication(publicationTemplate);
         resp.sendRedirect(req.getContextPath()+"/home");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        LOGGER.debug("displaying home page");
         int user_id = ((UserTemplate)req.getSession().getAttribute("user")).getId();
         System.out.println("User id is " + user_id);
         req.setAttribute("userName",req.getSession().getAttribute("userLogin"));

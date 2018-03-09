@@ -18,12 +18,11 @@ public class GlobalPublicationsServlet extends HttpServlet {
     }
     private static final Logger LOGGER = Logger.getLogger(GlobalPublicationsServlet.class);
 
-
     private static PublicationServices publicationServices = new PublicationServices();
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        LOGGER.debug("displaying publications");
         req.setAttribute("publications",publicationServices.getAllPublications());
         getServletContext().getRequestDispatcher("/publications.jsp").forward(req,resp);
     }

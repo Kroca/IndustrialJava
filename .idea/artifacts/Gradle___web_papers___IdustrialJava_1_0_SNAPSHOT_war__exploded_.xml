@@ -17,10 +17,12 @@
           <element id="dir-copy" path="$PROJECT_DIR$/out/production/resources" />
         </element>
         <element id="directory" name="lib">
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.servlet/jstl/1.2/74aca283cd4f4b4f3e425f5820cda58f44409547/jstl-1.2.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/log4j/log4j/1.2.17/5af35056b4d257e4b64b9e8069c0746e8b08629f/log4j-1.2.17.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/postgresql/postgresql/9.0-801.jdbc4/153f2f92a786f12fc111d0111f709012df87c808/postgresql-9.0-801.jdbc4.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.servlet/javax.servlet-api/3.0.1/6bf0ebb7efd993e222fc1112377b5e92a13b38dd/javax.servlet-api-3.0.1.jar" />
+          <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
+          <element id="library" level="project" name="Gradle: log4j:log4j:1.2.17" />
+          <element id="library" level="project" name="Gradle: org.apache.tomcat:tomcat-jdbc:9.0.5" />
+          <element id="library" level="project" name="Gradle: postgresql:postgresql:9.0-801.jdbc4" />
+          <element id="library" level="project" name="Gradle: javax.servlet:javax.servlet-api:3.0.1" />
+          <element id="library" level="project" name="Gradle: org.apache.tomcat:tomcat-juli:9.0.5" />
         </element>
       </element>
     </root>

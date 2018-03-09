@@ -1,5 +1,8 @@
 package Controllers;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,8 +13,11 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "Logout", urlPatterns = "/logout")
-public class LogoutSerlver extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+public class LogoutServlet extends HttpServlet {
+    static {
+        PropertyConfigurator.configure(LoginServlet.class.getClassLoader().getResource("log4j.properties"));
+    }
+    private static Logger LOGGER = Logger.getLogger(LoginServlet.class);
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -19,6 +25,7 @@ public class LogoutSerlver extends HttpServlet {
 
         if(session!=null)
         {
+            LOGGER.debug("user logged out");
             session.invalidate();
             request.setAttribute("errMessage", "You have logged out successfully");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Login.jsp");

@@ -14,6 +14,7 @@ public class PublicationServices {
     }
 
     public List<PublicationTemplate> getPublicationsOfAuthor(int author_id){
+
         return publicationsDAO.getPublicationsOfAuthor(author_id);
     }
 
