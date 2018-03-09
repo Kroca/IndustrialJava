@@ -5,7 +5,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-@WebFilter(servletNames = {"home"},urlPatterns = {"/home","/Home.jsp","addpub.jsp","publications.jsp","publications"})
+@WebFilter(servletNames = {"home"},urlPatterns = {"/home","/Home.jsp","/addpub.jsp","/publications.jsp","/publications"})
 public class WhiteListFilter implements Filter {
 
     @Override
