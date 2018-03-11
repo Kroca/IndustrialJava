@@ -17,7 +17,7 @@ public class UserServices {
 
     public String register(UserTemplate user){
         if(userDAO.insert(user)!=0) {
-            return "New user registered";
+            return "SUCCESS";
         }else {
             return "Couldn't register try again";
         }

@@ -1,5 +1,7 @@
 package paperSubmission.controllers;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +18,18 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class HomeController {
 
+    static {
+        PropertyConfigurator.configure(HomeController.class.getClassLoader().getResource("log4j.properties"));
+    }
+    private static Logger LOGGER = Logger.getLogger(HomeController.class);
+
     @Autowired
     PublicationServices publicationServices;
 
     @GetMapping("/home")
     ModelAndView getHome(Model model, HttpSession session) {
         if(filter(session)) {
+            LOGGER.debug("showing home page for the user");
             int user_id = (int) session.getAttribute("userId");
             System.out.println("User id is " + user_id);
             System.out.println(publicationServices);
@@ -44,7 +52,9 @@ public class HomeController {
             publicationTemplate.setDescription(description);
             publicationTemplate.setLink(link);
             publicationTemplate.setAuthorId(user_id);
-            model.addAttribute("message",publicationServices.addNewPublication(publicationTemplate));
+            String result = publicationServices.addNewPublication(publicationTemplate);
+            model.addAttribute("message",result);
+            LOGGER.debug("Result of adding new publication " + result);
             return new ModelAndView("redirect:/home").addObject(model);
         }else {
             return new ModelAndView("login");
@@ -55,6 +65,7 @@ public class HomeController {
     @GetMapping("/publications")
     String getPublicationsList(Model model,HttpSession session){
         if(filter(session)) {
+            LOGGER.debug("displaying total list of publications");
             model.addAttribute("publications", publicationServices.getAllPublications());
             return "publications";
         }else {
