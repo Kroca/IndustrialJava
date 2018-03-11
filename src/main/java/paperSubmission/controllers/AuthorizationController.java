@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import paperSubmission.model.template.UserTemplate;
 import paperSubmission.services.UserServices;
 
@@ -19,19 +20,19 @@ public class AuthorizationController {
         return "login";
     }
     @PostMapping("/login")
-    String postLogin(@RequestParam("nickName") String nickName,@RequestParam("password") String password, HttpSession session,Model model){
+    ModelAndView postLogin(@RequestParam("nickName") String nickName, @RequestParam("password") String password, HttpSession session, Model model){
 
         UserTemplate userTemplate = userServices.auth(nickName,password);
 
         if (userTemplate!=null)
         {
+
             session.setAttribute("userLogin",userTemplate.getNickName());
-            session.setAttribute("user",userTemplate);
-            model.addAttribute("nickName",nickName);
-            return "home";
+            session.setAttribute("userId",userTemplate.getId());
+            return new ModelAndView("redirect:/home");
         } else {
             model.addAttribute("errMessage","Failed to login");
-            return "login";
+            return new ModelAndView("login");
         }
     }
 
@@ -59,8 +60,8 @@ public class AuthorizationController {
         }
     }
 
-    @PostMapping("/logout")
-    String postLogout(HttpSession session,Model model){
+    @GetMapping("/logout")
+    String getLogout(HttpSession session,Model model){
         if(session!=null)
         {
             session.invalidate();
@@ -68,5 +69,6 @@ public class AuthorizationController {
         }
         return "login";
     }
+
 
 }

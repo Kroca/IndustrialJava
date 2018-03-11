@@ -23,7 +23,7 @@ public class PublicationServices {
 
     public String addNewPublication(PublicationTemplate template){
         if(publicationsDAO.insert(template)!=0){
-            return "SUCCESS";
+            return "Successfully added publication";
         }else {
             return "You couldn't add new publication, please try again later";
         }

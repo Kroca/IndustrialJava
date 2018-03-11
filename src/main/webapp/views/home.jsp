@@ -33,8 +33,10 @@ Welcome <c:out value="${nickName}" />
         </table>
     </c:otherwise>
 </c:choose>
-<a href="addpub.jsp">Add new publication</a>
-<a href="publication">See all the publications</a>
+<p><span style="color:green"><%=(request.getAttribute("message") == null) ? ""
+        : request.getAttribute("message")%></span></p>
+<a href="/addpub">Add new publication</a>
+<a href="/publications">See all the publications</a>
 <div style="text-align: right"><a href="/logout">Logout</a></div>
 </body>
 </html>

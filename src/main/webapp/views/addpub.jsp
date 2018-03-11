@@ -10,7 +10,7 @@
 <head>
     <title>Add publication</title>
     <h5>Add new publication</h5>
-    <form name="form" action="home" method="post">
+    <form name="form" action="/addpub" method="post">
         <table align="center">
             <tr>
                 <td>Title</td>
