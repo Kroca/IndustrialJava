@@ -1,5 +1,7 @@
 package paperSubmission.model.DAO;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.springframework.stereotype.Repository;
 import paperSubmission.model.template.PublicationTemplate;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -10,6 +12,10 @@ import java.util.List;
 
 @Repository
 public class PublicationsDAOImpl implements PublicationDAO{
+    static {
+        PropertyConfigurator.configure(PublicationsDAOImpl.class.getClassLoader().getResource("log4j.properties"));
+    }
+    private static Logger LOGGER = Logger.getLogger(PublicationsDAOImpl.class);
 
     public List<PublicationTemplate> getPublicationsOfAuthor(int author_id) {
 
@@ -18,7 +24,7 @@ public class PublicationsDAOImpl implements PublicationDAO{
         ResultSet resultSet = null;
         List<PublicationTemplate> publications = new ArrayList<>();
         try {
-            con = DBConnection.createConnection();
+            con = DBConnection.getDataSource().getConnection();
             statement = con.createStatement();
             resultSet = statement.executeQuery("select * from publications where author_id = " + author_id);
             while (resultSet.next()) {
@@ -30,8 +36,8 @@ public class PublicationsDAOImpl implements PublicationDAO{
                 temp.setTitle(resultSet.getString("title"));
                 publications.add(temp);
             }
-            System.out.println("hey" + publications);
         } catch (SQLException e) {
+            LOGGER.error("Couldn't get information about authors publications from database",e);
             e.printStackTrace();
         } finally {
             closeResources(con, statement, resultSet);
@@ -78,7 +84,7 @@ public class PublicationsDAOImpl implements PublicationDAO{
         ResultSet resultSet = null;
         List<PublicationTemplate> publications = new ArrayList<>();
         try {
-            con = DBConnection.createConnection();
+            con = DBConnection.getDataSource().getConnection();
             statement = con.createStatement();
             resultSet = statement.executeQuery("select * from publications");
             while (resultSet.next()) {
@@ -91,6 +97,7 @@ public class PublicationsDAOImpl implements PublicationDAO{
                 publications.add(temp);
             }
         } catch (SQLException e) {
+            LOGGER.error("Couldn't get list publications from database",e);
             e.printStackTrace();
         } finally {
             closeResources(con, statement, resultSet);
@@ -103,7 +110,7 @@ public class PublicationsDAOImpl implements PublicationDAO{
         Connection con = null;
         PreparedStatement preparedStatement = null;
         try {
-            con = DBConnection.createConnection();
+            con = DBConnection.getDataSource().getConnection();
             String query = "insert into publications(description,title,link,author_id) values (?,?,?,?)"; //Insert user details into the table 'USERS'
             preparedStatement = con.prepareStatement(query); //Making use of prepared statements here to insert bunch of data
             preparedStatement.setString(1, entity.getDescription());
@@ -112,6 +119,7 @@ public class PublicationsDAOImpl implements PublicationDAO{
             preparedStatement.setInt(4, entity.getAuthorId());
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            LOGGER.error("Couldn't add new  publication to database",e);
             e.printStackTrace();
         } finally {
             closeResources(con, preparedStatement, null);
